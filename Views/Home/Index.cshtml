@@ -6,20 +6,20 @@
 
 @if (TempData["MessageSuccess"] is not null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show madimi-one-regular" role="alert">
         @TempData["MessageSuccess"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 @if (TempData["MessageError"] is not null)
 {
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger madimi-one-regular" role="alert">
         @TempData["MessageError"]
     </div>
 }
 
 
-<h1 class="text-center my-4 madimi-one-regular">Lista Verbali</h1>
+<h1 class="text-center my-4 madimi-one-regular font-size-h1">Lista Verbali</h1>
 
 @if(Model is null)
 {
@@ -54,7 +54,7 @@ else
                     <td scope="col">@multa.DecurtamentoPunti</td>
                     <td scope="col">@multa.Descrizione</td>
                     <td scope="col">
-                        <a class="btn btn-outline-success" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Dettagli Anagrafica del criminale</a>
+                        <a class="btn btn-outline-success button-anagrafe" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Dettagli Anagrafica del criminale</a>
                     </td>
                 </tr>
             }

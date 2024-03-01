@@ -2,19 +2,20 @@
     ViewData["Title"] = "Dettagli anagrafica";
 }
 
-<h1 class="text-center my-4">Dettagli anagrafica</h1>
-
-<div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-4">
-            <img src="https://media.stickerswiki.app/memepolice/147451.512.webp" class="img-fluid rounded-start" alt="propic">
-        </div>
-        <div class="col-8">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Cognome - ID: @Model.IDAnagrafica</h5>
-                <p class="card-text">Nome: @Model.Nome <br/> Cognome: @Model.Cognome</p>
-                <p class="card-text">Codice Fiscale: @Model.Cod_Fisc</p>
-                <p class="card-text">Residente in: @Model.Indirizzo @Model.Citta @Model.CAP</p>
+<h1 class="text-center my-4 madimi-one-regular font-size-h1 py-5">Dettagli anagrafica</h1>
+<div class="d-flex justify-content-center madimi-one-regular">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-4">
+                <img src="https://media.stickerswiki.app/memepolice/147451.512.webp" class="img-fluid rounded-start" alt="propic">
+            </div>
+            <div class="col-8">
+                <div class="card-body">
+                    <h5 class="card-title size-font text-center py-3">@Model.Cognome - ID: @Model.IDAnagrafica</h5>
+                    <p class="card-text size-font text-center pt-2">Nome: @Model.Nome <br /> Cognome: @Model.Cognome</p>
+                    <p class="card-text size-font text-center">Codice Fiscale: @Model.Cod_Fisc</p>
+                    <p class="card-text size-font text-center">Residente in: @Model.Indirizzo , @Model.Citta , @Model.CAP</p>
+                </div>
             </div>
         </div>
     </div>

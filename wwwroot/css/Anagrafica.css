@@ -3,6 +3,11 @@
     font-weight: 400;
     font-style: normal;
 }
+
 .font-size-h1 {
     font-size: 5em
+}
+
+.size-font {
+    font-size: 1.3em;
 }
