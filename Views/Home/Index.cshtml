@@ -1,0 +1,63 @@
+﻿<link href="~/css/index.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "Home Page Lista Verbali";
+}
+
+@if (TempData["MessageSuccess"] is not null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MessageSuccess"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["MessageError"] is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MessageError"]
+    </div>
+}
+
+
+<h1 class="text-center my-4 madimi-one-regular">Lista Verbali</h1>
+
+@if(Model is null)
+{
+    <h1>Non ci sono verbali</h1>
+}
+else
+{
+    <table class="table text-center madimi-one-regular">
+        <thead>
+            <tr>
+                <th scope="col">ID Verbale</th>
+                <th scope="col">Data violazione</th>
+                <th scope="col">Indirizzo violazione</th>
+                <th scope="col">Nominativo agente</th>
+                <th scope="col">Data trascrizione verbale</th>
+                <th scope="col">importo</th>
+                <th scope="col">Decurtamento punti</th>
+                <th scope="col">Tipo violazione</th>
+                <th scope="col">Trasgressore</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var multa in Model)
+            {
+                <tr>
+                    <td scope="col">@multa.IDVerbale</td>
+                    <td scope="col">@multa.DataViolazione.ToShortDateString()</td>
+                    <td scope="col">@multa.IndirizzoViolazione</td>
+                    <td scope="col">@multa.Nominativo_Agente</td>
+                    <td scope="col">@multa.DataTrascrizioneVerbale.ToShortDateString()</td>
+                    <td scope="col">@multa.Importo.ToString("#,0.##") €</td>
+                    <td scope="col">@multa.DecurtamentoPunti</td>
+                    <td scope="col">@multa.Descrizione</td>
+                    <td scope="col">
+                        <a class="btn btn-outline-success" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Dettagli Anagrafica del criminale</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,48 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+.Bg-nav-color {
+    background-color: #90F08C;
+}
+.Bg-color {
+    background-color: #00DDB9;
+}
+.madimi-one-regular {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+    padding-top:85px;
+}
+.font-size-nav{
+    font-size:1.3em
+}
+img:hover {
+    transform: scale(1.3);
+    transition: transform 1.3s;
+}
+.nav-color-bg-drop:hover {
+    background-color: transparent;
+    transform: scale(1.1);
+    transition: transform 0.8s;
+}

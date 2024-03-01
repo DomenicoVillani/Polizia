@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Aggiungi Verbale";
+}
+@model Verbale
+
+<h1 class="text-center my-4">Aggiungi Verbale</h1>
+
+<form class="row g-3" asp-controller="Home" asp-action="Add" method="post">
+    <div class="col-6">
+        <label asp-for="@Model.DataViolazione" class="form-label">Data Violazione:</label>
+        <input type="date" class="form-control" asp-for="@Model.DataViolazione">
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.DataTrascrizioneVerbale" class="form-label">Data Trascrizione Verbale:</label>
+        <input type="date" class="form-control" asp-for="@Model.DataTrascrizioneVerbale">
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.IndirizzoViolazione" class="form-label">Indirizzo: </label>
+        <input type="text" class="form-control" asp-for="@Model.IndirizzoViolazione">
+    </div>
+    <div class="col-3">
+        <label asp-for="@Model.Importo" class="form-label">Importo multa:</label>
+        <input type="number" class="form-control" asp-for="@Model.Importo">
+    </div>
+    <div class="col-3">
+        <label asp-for="@Model.DecurtamentoPunti" class="form-label">Punti decurtati: </label>
+        <input type="number" class="form-control" asp-for="@Model.DecurtamentoPunti">
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.Nominativo_Agente" class="form-label">Nominativo agente</label>
+        <input type="text" class="form-control" asp-for="@Model.Nominativo_Agente">
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.IDAnagrafica" class="form-label"></label>
+        <select id="inputState" class="form-select" asp-for="@Model.IDAnagrafica">
+            <option selected></option>
+            @foreach (var utente in ViewBag.Utenti)
+            {
+                <option value="@utente.IDAnagrafica">@(utente.Nome) @(utente.Cognome) - @(utente.Cod_Fisc)</option>
+            }
+        </select>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.IDViolazione" class="form-label"></label>
+        <select id="inputState" class="form-select" asp-for="@Model.IDViolazione">
+            <option selected></option>
+            @foreach (var violazione in ViewBag.Violazioni)
+            {
+                <option value="@violazione.IDViolazione">@violazione.Descrizione</option>
+            }
+        </select>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div>
+            <button type="submit" class="btn btn-primary">Aggiungi multa</button>
+        </div>
+    </div>
+</form>

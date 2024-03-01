@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Punti decurtati 11 o piu";
+}
+
+<h1 class="text-center my-4 madimi-one-regular">Punti decurtati 11 o piu</h1>
+
+@if (Model is null)
+{
+    <h1>Non ci sono verbali</h1>
+}
+else
+{
+    <table class="table text-center madimi-one-regular">
+        <thead>
+            <tr>
+                <th scope="col">Cognome</th>
+                <th scope="col">Nome</th>
+                <th scope="col">IndirizzoViolazione</th>
+                <th scope="col">DataViolazione</th>
+                <th scope="col">Importo</th>
+                <th scope="col">Punti decurtati</th>
+                <th scope="col">Codice fiscale</th>
+                <th scope="col">Nominativo Agente</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var multa in Model)
+            {
+                <tr>
+                    <td scope="col">@multa.Cognome</td>
+                    <td scope="col">@multa.Nome</td>
+                    <td scope="col">@multa.IndirizzoViolazione</td>
+                    <td scope="col">@multa.DataViolazione.ToShortDateString()</td>
+                    <td scope="col">@multa.Importo.ToString("#,0.##") €</td>
+                    <td scope="col">@multa.DecurtamentoPunti</td>
+                    <td scope="col">@multa.Cod_Fisc</td>
+                    <td scope="col">@multa.Nominativo_Agente</td>
+                    <td scope="col">
+                        <a class="btn btn-outline-success" asp-controller="Home" asp-action="Anagrafica" asp-route-id="@multa.IDAnagrafica">Dettagli Anagrafica del criminale</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
