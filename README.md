@@ -1,3 +1,5 @@
+(fake) Gestionale della Polizia NON RESPONSIVE!
+
 Nella cartella DB ci sono gli screen delle tabelle e query per l'esercizio
 ma soprattutto c'e' il DB esportato da poter usare per l'applicazione
 per importare il DB:
