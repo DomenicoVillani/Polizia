@@ -40,6 +40,7 @@ else
                 <th scope="col">Tipo violazione</th>
                 <th scope="col">Trasgressore</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +60,9 @@ else
                     </td>
                     <td scope="col">
                         <a class="btn btn-outline-success button-anagrafe" asp-controller="Home" asp-action="EditMulta" asp-route-id="@multa.IDVerbale">Modifica Multa</a>
+                    </td>
+                    <td scope="col">
+                        <a class="btn btn-outline-success button-anagrafe" asp-controller="Home" asp-action="DeleteMulta" asp-route-id="@multa.IDVerbale">Elimina multa</a>
                     </td>
                 </tr>
             }

@@ -377,6 +377,96 @@ namespace Polizia.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult DeleteMulta(int id)
+        {
+            Verbale verbale = null;
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand("SELECT * FROM Verbale WHERE  IDVerbale = @id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                var rows = cmd.ExecuteReader();
+                if (rows.HasRows)
+                {
+                    rows.Read();
+                    verbale = new Verbale
+                    {
+                        IDVerbale = (int)rows["IDVerbale"],
+                        DataViolazione = (DateTime)rows["DataViolazione"],
+                        IndirizzoViolazione = rows["IndirizzoViolazione"].ToString(),
+                        Nominativo_Agente = rows["Nominativo_Agente"].ToString(),
+                        DataTrascrizioneVerbale = (DateTime)rows["DataTrascrizioneVerbale"],
+                        Importo = (decimal)rows["Importo"],
+                        DecurtamentoPunti = (int)rows["DecurtamentoPunti"],
+                        IDAnagrafica= (int)rows["IDAnagrafica"],
+                        IDViolazione = (int)rows["IDViolazione"],
+                    };
+                }
+                rows.Close();
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+            return View(verbale);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteMulta(Verbale verbale)
+        {
+            var error = true;
+            var deletedMulta = new Verbale();
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand("SELECT * FROM Verbale WHERE  IDVerbale = @id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", verbale.IDVerbale);
+                var rows = cmd.ExecuteReader();
+                if (rows.HasRows)
+                {
+                    rows.Read();
+                    deletedMulta.IDVerbale = (int)rows["IDVerbale"];
+                    deletedMulta.DataViolazione = (DateTime)rows["DataViolazione"];
+                    deletedMulta.IndirizzoViolazione = rows["IndirizzoViolazione"].ToString();
+                    deletedMulta.Nominativo_Agente = rows["Nominativo_Agente"].ToString();
+                    deletedMulta.DataTrascrizioneVerbale = (DateTime)rows["DataTrascrizioneVerbale"];
+                    deletedMulta.Importo = (decimal)rows["Importo"];
+                    deletedMulta.DecurtamentoPunti = (int)rows["DecurtamentoPunti"];
+                    deletedMulta.IDAnagrafica = (int)rows["IDAnagrafica"];
+                    deletedMulta.IDViolazione = (int)rows["IDViolazione"];
+                }
+                rows.Close();
+
+                var commandDelete = new SqlCommand("DELETE FROM Verbale WHERE  IDVerbale=@id", DB.conn);
+                commandDelete.Parameters.AddWithValue("@id", verbale.IDVerbale);
+                var nRows = commandDelete.ExecuteNonQuery();
+                if (nRows > 0)
+                {
+                    error = false;
+                }
+            }
+            catch (Exception ex) { }
+            finally
+            {
+                DB.conn.Close();
+            }
+
+            if (!error)
+            {
+                TempData["MessageSuccess"] = "Multa eliminata";
+                return RedirectToAction("Index");
+            }
+
+            TempData["MessageError"] = "C'è stato un problema durante l'eliminazione";
+            return RedirectToAction("Index");
+
+
+        }
 
 
         public IActionResult Privacy()

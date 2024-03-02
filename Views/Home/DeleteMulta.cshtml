@@ -1,0 +1,15 @@
+﻿<link href="~/css/deletemulta.css" rel="stylesheet" />
+@model Verbale
+
+<h2 class="text-center madimi-one-regular font-size-h1">ELIMINAZIONE MULTA!!!!</h2>
+<p class="text-center madimi-one-regular size-font">Sei sicuro di voler eliminare il verbale con id:  @(Model.IDVerbale)? </p>
+<p class="text-center madimi-one-regular size-font"> effettuato da: @(Model.Nominativo_Agente) il giorno @(Model.DataViolazione.ToShortDateString())</p>
+<p class="text-center madimi-one-regular size-font">UNA VOLTA CLICCATO IL PULSANTE SOTTOSTANTE LA MULTA SPARIRA'</p>
+<P class="text-center madimi-one-regular size-font">QUESTA AZIONE E' IRREVERSIBILE!!</P>
+<form asp-controller="Home" asp-action="DeleteMulta" method="post">
+    <input type="hidden" asp-for="@Model.IDVerbale" />
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-success madimi-one-regular size-button">!!Elimina!!</button>
+    </div>
+</form>
+    
