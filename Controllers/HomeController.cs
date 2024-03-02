@@ -244,6 +244,70 @@ namespace Polizia.Controllers
             TempData["MessageError"] = "C'è stato un problema durante l'aggiornamento del DB";
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Anagrafica anagrafica = null;
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand("SELECT * FROM Anagrafica WHERE IDAnagrafica = @id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                var rows = cmd.ExecuteReader();
+                if (rows.HasRows)
+                {
+                    rows.Read();
+                    anagrafica = new Anagrafica
+                    {
+                        IDAnagrafica = (int)rows["IDAnagrafica"],
+                        Cognome = rows["Cognome"].ToString(),
+                        Nome = rows["Nome"].ToString(),
+                        Indirizzo = rows["Indirizzo"].ToString(),
+                        Citta = rows["Citta"].ToString(),
+                        CAP = rows["CAP"].ToString(),
+                        Cod_Fisc = rows["Cod_Fisc"].ToString(),
+                    };
+                }
+                rows.Close();
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+            return View(anagrafica);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Anagrafica anagrafica)
+        {
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand(@"UPDATE Anagrafica SET Cognome=@Cognome, Nome=@Nome, Indirizzo=@Indirizzo,
+                                Citta=@Citta, CAP=@CAP, Cod_Fisc=@Cod_Fisc WHERE IDAnagrafica=@id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", anagrafica.IDAnagrafica);
+                cmd.Parameters.AddWithValue("@Cognome", anagrafica.Cognome);
+                cmd.Parameters.AddWithValue("@Nome", anagrafica.Nome);
+                cmd.Parameters.AddWithValue("@Indirizzo", anagrafica.Indirizzo);
+                cmd.Parameters.AddWithValue("@Citta", anagrafica.Citta);
+                cmd.Parameters.AddWithValue("@CAP", anagrafica.CAP);
+                cmd.Parameters.AddWithValue("@Cod_Fisc", anagrafica.Cod_Fisc);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+            return RedirectToAction("Anagrafica", new { id = anagrafica.IDAnagrafica });
+        }
 
         public IActionResult Privacy()
         {

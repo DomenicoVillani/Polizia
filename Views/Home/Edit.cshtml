@@ -1,0 +1,40 @@
+﻿<link href="~/css/editpage.css" rel="stylesheet" />
+﻿@{
+    ViewData["Title"] = "Modifica trasgressore";
+}
+
+@model Anagrafica
+<h1 class="madimi-one-regular text-center font-size-h1 mt-2">Modifica Trasgressore</h1>
+<form class="row g-3" asp-controller="Home" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="@Model.IDAnagrafica" />
+    <div class="col-6">
+        <label asp-for="@Model.Nome" class="form-label madimi-one-regular size-font">Nome</label>
+        <input type="text" class="form-control" asp-for="@Model.Nome" required>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.Cognome" class="form-label madimi-one-regular size-font">Cognome</label>
+        <input type="text" class="form-control" asp-for="@Model.Cognome"  required>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.Indirizzo" class="form-label madimi-one-regular size-font">Indirizzo</label>
+        <input type="text" class="form-control" asp-for="@Model.Indirizzo"  placeholder="1234 Main St" required>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.Citta" class="form-label madimi-one-regular size-font">Città</label>
+        <input type="text" class="form-control" asp-for="@Model.Citta" required>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.CAP" class="form-label madimi-one-regular size-font">CAP</label>
+        <input type="text" class="form-control" asp-for="@Model.CAP" maxlength="5" min="5" required>
+    </div>
+    <div class="col-6">
+        <label asp-for="@Model.Cod_Fisc" class="form-label madimi-one-regular size-font">Codice Fiscale </label>
+        <input type="text" class="form-control" asp-for="@Model.Cod_Fisc" maxlength="16" min="16">
+    </div>
+    <div class="d-flex justify-content-center my-5">
+        <div>
+            <button class="btn btn-success madimi-one-regular size-button">Modifica trasgressore</button>
+        </div>
+    </div>
+    
+</form>
