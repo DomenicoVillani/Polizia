@@ -59,7 +59,7 @@ namespace Polizia.Controllers
 
 
         [HttpGet]
-        public IActionResult Anagrafica([FromRoute]int? id)
+        public IActionResult Anagrafica([FromRoute] int? id)
         {
             var utente = new Anagrafica();
             if (id.HasValue)
@@ -223,9 +223,9 @@ namespace Polizia.Controllers
                 cmd.Parameters.AddWithValue("@CAP", anagrafica.CAP);
                 cmd.Parameters.AddWithValue("@Cod_Fisc", anagrafica.Cod_Fisc);
                 var rows = cmd.ExecuteNonQuery();
-                if(rows>0)
+                if (rows > 0)
                 {
-                    error=false;
+                    error = false;
                 }
             }
             catch (Exception ex)
@@ -308,6 +308,76 @@ namespace Polizia.Controllers
             }
             return RedirectToAction("Anagrafica", new { id = anagrafica.IDAnagrafica });
         }
+
+        [HttpGet]
+        public IActionResult EditMulta(int id)
+        {
+            Verbale verbale = null;
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand("SELECT * FROM Verbale WHERE  IDVerbale = @id", DB.conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                var rows = cmd.ExecuteReader();
+                if (rows.HasRows)
+                {
+                    rows.Read();
+                    verbale = new Verbale
+                    {
+                        IDVerbale = (int)rows["IDVerbale"],
+                        DataViolazione = (DateTime)rows["DataViolazione"],
+                        IndirizzoViolazione = rows["IndirizzoViolazione"].ToString(),
+                        Nominativo_Agente = rows["Nominativo_Agente"].ToString(),
+                        Importo = (decimal)rows["Importo"],
+                        DecurtamentoPunti = (int)rows["DecurtamentoPunti"],
+                    };
+                }
+                rows.Close();
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+            return View(verbale);
+        }
+
+        [HttpPost]
+        public IActionResult EditMulta(Verbale verbale)
+        {
+            try
+            {
+                DB.conn.Open();
+                var cmd = new SqlCommand(@"UPDATE Verbale
+                        SET
+                        Verbale.IndirizzoViolazione = @IndirizzoViolazione,
+                        Verbale.Nominativo_Agente = @Nominativo_Agente,
+                        Verbale.Importo = @Importo,
+                        Verbale.DecurtamentoPunti = @DecurtamentoPunti
+                        WHERE Verbale.IDVerbale = @id;
+                        ", DB.conn);
+                cmd.Parameters.AddWithValue("@id", verbale.IDVerbale);
+                cmd.Parameters.AddWithValue("@IndirizzoViolazione", verbale.IndirizzoViolazione);
+                cmd.Parameters.AddWithValue("@Nominativo_Agente", verbale.Nominativo_Agente);
+                cmd.Parameters.AddWithValue("@Importo", verbale.Importo);
+                cmd.Parameters.AddWithValue("@DecurtamentoPunti", verbale.DecurtamentoPunti);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+            finally
+            {
+                DB.conn.Close();
+            }
+            return RedirectToAction("Index");
+        }
+
+
 
         public IActionResult Privacy()
         {
